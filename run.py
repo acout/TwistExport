@@ -24,12 +24,12 @@ def show_error(error_type):
 
 # List progress messages for each progress step
 progress_messages = {
-"workspaces" : "Listing workspaces.",
-"groups" : "Listing groups.",
-"users" : "Listing users.",
-"channels" : "Listing channels.",
-"threads" : "Listing threads.",
-"comments" : "Listing comments.",
+"workspaces" : "Getting workspaces.",
+"groups" : "Getting groups.",
+"users" : "Getting users.",
+"channels" : "Getting channels.",
+"threads" : "Getting threads.",
+"comments" : "Getting comments.",
 "good_bye" : "All is well.\nAstalavista baby!"
 }
 # List of parent items for each progress step
@@ -60,29 +60,40 @@ if not auth_key:
 # Go to the base directory
 files.go_to_base_dir()
 
-# Retrieve list of workspaces
+# Retrieve and store workspace data
 workspaces_data = connect.get_data("workspaces",0,auth_key)
-files.show_progress("workspaces",0)
+show_progress("workspaces",0)
 for workspace in workspaces_data:
-    pass
-    #files.make_and_enter_item_dir(files.item_name("workspace",workspace["id"]))
+    files.make_and_enter_item_dir(files.item_name("workspace",workspace["id"],workspace["name"]))
+    files.make_file(files.item_name("workspace",workspace["id"],workspace["name"]),workspace)
 
-# For each workspace, retrieve list of users
-for workspace in workspaces_data:
+    # Retrieve and store user data
     users_data = connect.get_data("users",workspace["id"],auth_key)
     show_progress("users",workspace["id"])
+    files.make_and_enter_item_dir("Users")
     for user in users_data:
-        print(user["id"])
+        files.make_file(files.item_name("user",user["id"],user["name"]),user)
+    files.move_to_parent_dir()
 
-# For each workspace, retrieve list of channels
-for workspace in workspaces_data:
+    # Retrieve and store channel data
     channels_data = connect.get_data("channels",workspace["id"],auth_key)
     show_progress("channels",workspace["id"])
     for channel in channels_data:
-        print(channel["id"])
+        files.make_and_enter_item_dir(files.item_name("channel",channel["id"],channel["name"]))
+        files.make_file(files.item_name("channel",channel["id"],channel["name"]),channel)
         threads_data = connect.get_data("threads",channel["id"],auth_key)
         show_progress("threads",channel["id"])
         for thread in threads_data:
-            print(thread["id"])
+            files.make_and_enter_item_dir(files.item_name("thread",thread["id"],thread["title"]))
+            files.make_file(files.item_name("thread",thread["id"],thread["title"]),thread)
+            comments_data = connect.get_data("comments",thread["id"],auth_key)
+            show_progress("comments",thread["id"])
+            for comment in comments_data:
+                files.make_file(files.item_name("comment",comment["id"],""),comment)
+            files.move_to_parent_dir()
+        files.move_to_parent_dir()
+
+# Go to the base directory
+files.go_to_base_dir()
 
 show_progress("good_bye",0)
