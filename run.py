@@ -7,7 +7,7 @@ import connect
 
 # List of error types and error messages
 error_messages = {
-"AuthKey" : "You have not set your Authentication Key correctly.\nPlease go through the README to see how to fix this."
+"auth_key" : "You have not set your Authentication Key correctly.\nPlease go through the README to see how to fix this."
 }
 
 # Function to print the the correct error message
@@ -19,7 +19,7 @@ def show_error(error_type):
 
 # List of progress steps and progress messages
 progress_messages = {
-"GoodBye" : "All is well.\nAlta vista baby!"
+"good_bye" : "All is well.\nAlta vista baby!"
 }
 
 # Function to print a progress message.
@@ -29,5 +29,7 @@ def show_error(progress_type):
     else:
         print("DEBUG: Wrong progress_type")
 
+# Execution
+# Check if auth_key is set (need to update this to check with a ping to Twist)
 if settings.auth_key == "NotSet":
-    show_error("AuthKey")
+    show_error("auth_key")

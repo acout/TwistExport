@@ -1,7 +1,8 @@
 # TwistExport
- Simple script to export Twist Data
-This README is true and correct as of 14th June 2020.
-All future incompatibilities should be blamed on the passage of time.
+Simple script to export Twist Data
+
+This README is true and correct as of 14th June 2020.  
+All future incompatibilities should be blamed on the passage of time.  
 DISCLAIMER: I am not associated with Twist (or Doist), other than having tried to use the product and wanting to export the data when it did not work out.
 
 ## SOME BACKGROUND:
