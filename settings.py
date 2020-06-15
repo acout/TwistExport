@@ -2,7 +2,7 @@
 # Please go through the README for instructions on how to configure the settings in this file.
 
 # Replace the string "NotSet" with your Authentication Key and save this file.
-auth_key = str("oauth2:0a42f3c51430c16be18a3fa285978bd842ad2c85")
+auth_key = str("NotSet")
 
 # Change the settings that follow only if you understand the implications.
 

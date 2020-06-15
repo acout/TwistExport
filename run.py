@@ -6,7 +6,7 @@ import files
 import connect
 
 # Counting progress steps
-steps = 0
+step = 0
 
 # List of error types and error messages
 error_messages = {
@@ -33,6 +33,7 @@ progress_message_item = {
 # Function to print a progress message, for a particular item
 # The item is identified by the item ID
 def show_progress(progress_type,item_id):
+    global step
     print("---")
     step+=1
     print("Step " + str(step))
