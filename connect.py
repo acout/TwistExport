@@ -6,14 +6,29 @@ import requests
 from requests_oauthlib import OAuth2Session
 
 # API References
+# Base API URL
 base_url = "https://api.twist.com/api/v3/"
+# API URL suffix for each type of query
 url_suffix ={
 "workspaces" : "workspaces/get",
-"channels" : "channels/get"
+"users" : "workspaces/get_users",
+"groups" : "groups/get",
+"channels" : "channels/get",
+"threads" : "threads/get",
+"comments" : "comments/get",
+"conversations" : "conversations/get",
+"messages" : "conversation_messages/get"
 }
+# Single parameter to reference scope
 url_parameter ={
 "workspaces" : 0,
-"channels" : "workspace_id"
+"users" : "id",
+"groups" : "workspace_id",
+"channels" : "workspace_id",
+"threads" : "channel_id",
+"comments" : "thread_id",
+"conversations" : "workspace_id",
+"messages" : "conversation_id"
 }
 
 # Retrieve a data object from the server
@@ -33,7 +48,3 @@ def get_data(data_class,parameter_id,token_input):
     # Each dict represents an instance of the data class
     response = response_data
     return response
-
-# Retrieve a set of data objects from the server
-def get_data_in_batch(data_class,data_id_batch,token_input):
-    pass

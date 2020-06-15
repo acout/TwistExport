@@ -20,12 +20,15 @@ In order to use these scripts follow these steps in precisely this order:
 
 2. Now in the integration settings on the Twist site, go to the OAuth section and find the token marked as "OAuth2 test token".
 
-If you are unable to execute steps 1 & 2, don't email me, just work harder.
+If you are unable to execute steps 1 & 2, don't email me, just work harder at it.
 
-3. Copy that token and paste it into the auth_key string in the settings.py file.
+3. Copy that token and paste it into the auth_key string in an oauth_key.txt file, on the first line.
+
 DISCLAIMER: This is a workaround for using the Twist testing framework for their integrations. This will use your user scope in Twist (you is the person who is reading and enduring this arduous instruction set).
+
 From the Twist blurb:
 "To get started quickly with your app development, you can use the test token to your own account without going through the authorization process. The test token will have the full scope access."
+
 BE CAREFUL, DO NOT EXPOSE THIS TOKEN.
 
 4. Install the "requests" and "requests_oauthlib" python modules. Usually this means running the command "pip3 install requests requests_oauthlib". Then run this command in the scripts folder: "python3 run.py"
