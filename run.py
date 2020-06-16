@@ -81,11 +81,13 @@ for workspace in workspaces_data:
     for channel in channels_data:
         files.make_and_enter_item_dir(files.item_name("channel",channel["id"],channel["name"]))
         files.make_file(files.item_name("channel",channel["id"],channel["name"]),channel)
+        # Retrieve and store threads data
         threads_data = connect.get_data("threads",channel["id"],auth_key)
         show_progress("threads",channel["name"])
         for thread in threads_data:
             files.make_and_enter_item_dir(files.item_name("thread",thread["id"],thread["title"]))
             files.make_file(files.item_name("thread",thread["id"],thread["title"]),thread)
+            # Retrieve and store comments
             comments_data = connect.get_data("comments",thread["id"],auth_key)
             show_progress("comments",thread["title"])
             for comment in comments_data:
