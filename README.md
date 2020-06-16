@@ -22,9 +22,9 @@ In order to use these scripts follow these steps in precisely this order:
 
 If you are unable to execute steps 1 & 2, don't email me, just work harder at it.
 
-3. Copy that token and paste it into the auth_key string in an oauth_key.txt file, on the first line.
+3. Copy that token and paste it into the auth_key string in an oauth_key.txt file. You will need to create this file and it should contain only one line, which is the token.
 
-DISCLAIMER: This is a workaround for using the Twist testing framework for their integrations. This will use your user scope in Twist (you is the person who is reading and enduring this arduous instruction set).
+DISCLAIMER: This is a workaround that uses the Twist integration testing option. This will use the permissions on the basis of your user scope in Twist (you is the person who is reading and enduring this arduous instruction set).
 
 From the Twist blurb:
 "To get started quickly with your app development, you can use the test token to your own account without going through the authorization process. The test token will have the full scope access."

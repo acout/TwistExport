@@ -43,13 +43,13 @@ progress_message_item = {
 
 # Function to print a progress message, for a particular item
 # The item is identified by the item ID
-def show_progress(progress_type,item_id):
+def show_progress(progress_type,item_name):
     global step
     print("---")
-    step+=1
+    step += 1
     print("Step " + str(step))
-    if item_id:
-        print("For " + progress_message_item[progress_type] +" "+ str(item_id) +":")
+    if item_name:
+        print("For " + progress_message_item[progress_type] +" "+ str(item_name) +":")
     print(progress_messages[progress_type])
 
 # Execution
@@ -69,29 +69,29 @@ for workspace in workspaces_data:
 
     # Retrieve and store user data
     users_data = connect.get_data("users",workspace["id"],auth_key)
-    show_progress("users",workspace["id"])
+    show_progress("users",workspace["name"])
     files.make_and_enter_item_dir("Users")
     for user in users_data:
         files.make_file(files.item_name("user",user["id"],user["name"]),user)
-    files.move_to_parent_dir()
+    files.go_to_parent_dir()
 
     # Retrieve and store channel data
     channels_data = connect.get_data("channels",workspace["id"],auth_key)
-    show_progress("channels",workspace["id"])
+    show_progress("channels",workspace["name"])
     for channel in channels_data:
         files.make_and_enter_item_dir(files.item_name("channel",channel["id"],channel["name"]))
         files.make_file(files.item_name("channel",channel["id"],channel["name"]),channel)
         threads_data = connect.get_data("threads",channel["id"],auth_key)
-        show_progress("threads",channel["id"])
+        show_progress("threads",channel["name"])
         for thread in threads_data:
             files.make_and_enter_item_dir(files.item_name("thread",thread["id"],thread["title"]))
             files.make_file(files.item_name("thread",thread["id"],thread["title"]),thread)
             comments_data = connect.get_data("comments",thread["id"],auth_key)
-            show_progress("comments",thread["id"])
+            show_progress("comments",thread["title"])
             for comment in comments_data:
                 files.make_file(files.item_name("comment",comment["id"],""),comment)
-            files.move_to_parent_dir()
-        files.move_to_parent_dir()
+            files.go_to_parent_dir()
+        files.go_to_parent_dir()
 
 # Go to the base directory
 files.go_to_base_dir()
