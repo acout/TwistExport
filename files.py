@@ -42,3 +42,12 @@ def make_file(file_name,file_content):
     file_handle = open(file_name+".JSON","x")
     file_handle.write(json.dumps(file_content))
     file_handle.close()
+
+def append_write_file(file_name,file_content):
+    if os.path.exists(file_name+".JSON"):
+        append_write = 'a' # append if already exists
+    else:
+        append_write = 'w' # make a new file if not
+    file_handle = open(file_name+".JSON",append_write)
+    file_handle.write(json.dumps(file_content) + "\n")
+    file_handle.close()

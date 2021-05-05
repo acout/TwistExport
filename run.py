@@ -62,6 +62,7 @@ files.go_to_base_dir()
 
 # Retrieve and store workspace data
 workspaces_data = connect.get_data("workspaces",0,auth_key)
+print(workspaces_data)
 show_progress("workspaces",0)
 for workspace in workspaces_data:
     files.make_and_enter_item_dir(files.item_name("workspace",workspace["id"],workspace["name"]))
@@ -85,6 +86,7 @@ for workspace in workspaces_data:
         threads_data = connect.get_data("threads",channel["id"],auth_key)
         show_progress("threads",channel["name"])
         for thread in threads_data:
+            print(files.item_name("thread",thread["id"],thread["title"]))
             files.make_and_enter_item_dir(files.item_name("thread",thread["id"],thread["title"]))
             files.make_file(files.item_name("thread",thread["id"],thread["title"]),thread)
             # Retrieve and store comments
@@ -94,6 +96,28 @@ for workspace in workspaces_data:
                 files.make_file(files.item_name("comment",comment["id"],""),comment)
             files.go_to_parent_dir()
         files.go_to_parent_dir()
+    
+    ##Retrieve and share conversations
+    conversations_data = connect.get_data("conversations",workspace["id"],auth_key)
+    for conversation in conversations_data:
+        print(conversation)
+        files.make_and_enter_item_dir(files.item_name("conversation",conversation["id"],str(conversation["id"])))
+        files.make_file(files.item_name("conversation",conversation["id"],str(conversation["id"])),conversation)
+        messages_data = connect.get_data("messages",conversation["id"],auth_key,500,0,"ASC")
+        from_obj_index = 500
+        while len(messages_data) > 0:
+            messages_txt = ""
+            first_id = messages_data[0]["id"]
+            first_ts = messages_data[0]["posted_ts"]
+            for message in messages_data:
+                print(message)
+                #messages_txt += str(message) + "\n"
+                files.append_write_file(files.item_name("message",first_ts,str(first_id)),message)
+                #files.append_write_file(files.item_name("message",messages_data[0]["posted_ts"],str(messages_data[0]["id"])),messages_txt)
+            messages_data = connect.get_data("messages",conversation["id"],auth_key,500,from_obj_index + 1,"ASC")
+            from_obj_index += 500
+        files.go_to_parent_dir()
+    
 
 # Go to the base directory
 files.go_to_base_dir()
